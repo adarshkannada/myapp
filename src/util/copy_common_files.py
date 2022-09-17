@@ -28,6 +28,6 @@ def copy_common_files(path_to_files: str, path_to_source_folder: str, path_to_de
     print("Files are copied successfully")
 
 
-copy_common_files(path_to_files="C://Users//Admin//Downloads//Adarsh//selected-adarsh",
-                  path_to_source_folder="D://MyCamera//2021//Aug//maduve//Adarsha and Swathi Wedding//Photos//",
-                  path_to_destination_folder="D://MyCamera//2021//Aug//maduve//Adarsha and Swathi Wedding//Photos//selected//")
+copy_common_files(path_to_files="path",
+                  path_to_source_folder="path",
+                  path_to_destination_folder="path")
