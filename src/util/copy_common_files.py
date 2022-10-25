@@ -3,6 +3,8 @@ import shutil
 
 
 def copy_common_files(path_to_files: str, path_to_source_folder: str, path_to_destination_folder: str):
+    """ this method will compare predefined set of files from a folder with a larger set of file,
+    and copy the common files to a different folder."""
     path_to_files = path_to_files
     list_of_files_in_source = os.listdir(path_to_files)
     print(list_of_files_in_source, sep='\n')
