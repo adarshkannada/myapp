@@ -22,7 +22,11 @@ def main():
     #     'https://www.googleapis.com/auth/drive.readonly'
     #     'https://www.googleapis.com/auth/spreadsheets'
     #     'https://www.googleapis.com/auth/spreadsheets.readonly'
+    pretty_print(get_data_from_google_sheet())
 
+
+def get_data_from_google_sheet():
+    values = None
     try:
         service = build('sheets', 'v4', credentials=creds)
 
@@ -30,14 +34,28 @@ def main():
         sheet = service.spreadsheets()
         result = sheet.values().get(spreadsheetId=SAMPLE_SPREADSHEET_ID,
                                     range=SAMPLE_RANGE_NAME).execute()
-        # print(result)
-        values = result.get('values', [])
-        print(values)
+        values = result.get('values')
         if not values:
             print('No data found.')
             return
     except HttpError as err:
         print(err)
+    return values
+
+
+def pretty_print(the_list: list):
+    """ this method will extract data from the list passed to it and print it in
+     combined key value format"""
+    output_dict = None
+    for element in the_list:
+        temp_list = element
+        # output_dict = " - ".join(map(str, temp_list))
+        print(" - ".join(map(str, temp_list)))
+    return output_dict
+
+
+def write_to_file():
+    pass
 
 
 if __name__ == '__main__':
