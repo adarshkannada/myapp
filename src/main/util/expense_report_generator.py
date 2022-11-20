@@ -3,14 +3,16 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from google.oauth2 import service_account
 
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
-SERVICE_ACCOUNT_FILE = 'C:\Project\myutils\my-utils\src\main\config\keys.json'
+from src.main.config.config_data import Config
+
+SCOPES = Config().get_scopes()
+SERVICE_ACCOUNT_FILE = Config().get_service_account_file()
 creds = service_account.Credentials.from_service_account_file(
     SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 
 # The ID and range of a sample spreadsheet.
-SAMPLE_SPREADSHEET_ID = '1-TB70kDSqz5f0yv8BcyrqCUewsRqaiqiz8YRfkmYReE'
-SAMPLE_RANGE_NAME = 'Nov 2022!F35:G48'
+SAMPLE_SPREADSHEET_ID = Config().get_spreadsheet_id()
+SAMPLE_RANGE_NAME = Config().get_month() + Config().get_sheet_cells()
 
 
 def main():
@@ -22,7 +24,8 @@ def main():
     #     'https://www.googleapis.com/auth/drive.readonly'
     #     'https://www.googleapis.com/auth/spreadsheets'
     #     'https://www.googleapis.com/auth/spreadsheets.readonly'
-    pretty_print(get_data_from_google_sheet())
+    output_list = generate_report(get_data_from_google_sheet())
+    write_to_file(output_list)
 
 
 def get_data_from_google_sheet():
@@ -43,19 +46,23 @@ def get_data_from_google_sheet():
     return values
 
 
-def pretty_print(the_list: list):
+def generate_report(the_list: list):
     """ this method will extract data from the list passed to it and print it in
      combined key value format"""
     output_dict = None
     for element in the_list:
         temp_list = element
-        # output_dict = " - ".join(map(str, temp_list))
-        print(" - ".join(map(str, temp_list)))
+        output_dict = ": ".join(map(str, temp_list))
+        print(output_dict)
+        write_to_file(output_dict)
     return output_dict
 
 
-def write_to_file():
-    pass
+def write_to_file(data_input: str):
+    file_output = open("expense_report.txt", "a")
+    temp_data = str(data_input)
+    file_output.write("\n"+temp_data)
+    file_output.close()
 
 
 if __name__ == '__main__':
