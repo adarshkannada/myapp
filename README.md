@@ -1,4 +1,4 @@
-# my-utils
+# MY UTILS
 Utility code written for personal use
 
 # Setup
