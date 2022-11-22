@@ -127,5 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# this setup
+.idea
 /src/main/config/keys.json
 /src/main/config/client_secret_484406734970-dt19vc7mqhoarp99q7gcmujt998fuo91.apps.googleusercontent.com.json
