@@ -1,17 +1,22 @@
+import os
 from datetime import date
 import calendar
+from pathlib import Path
+from dotenv import load_dotenv
 
 
 class Config:
     def __init__(self):
-        self.config = {'SERVICE_ACCOUNT_FILE': "/home/freedom/Documents/Projects/my-utils/src/main/config/keys.json",
-                       'SPREADSHEET_ID': 'id',
+        load_dotenv()
+        self.working_directory = Path(__file__).absolute().parent
+        self.config = {'SERVICE_ACCOUNT_FILE': "/keys.json",
+                       'SPREADSHEET_ID': os.getenv('SPREADSHEET_ID'),
                        'SCOPES': ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-                       'SHEET_CELLS': '!F35:G48'}
+                       'SHEET_CELLS': os.getenv('SHEET_CELLS')}
         self.current_date = date.today()
 
     def get_service_account_file(self):
-        return self.config.get('SERVICE_ACCOUNT_FILE')
+        return str(self.working_directory) + self.config.get('SERVICE_ACCOUNT_FILE')
 
     def get_spreadsheet_id(self):
         return self.config.get('SPREADSHEET_ID')
@@ -29,11 +34,6 @@ class Config:
         real_month = str(month_name)[0:3] + ' ' + str(year)
         return real_month
 
-
-
-
-
-
-
-
-
+#
+# s = Config()
+# print(s.get_spreadsheet_id())
