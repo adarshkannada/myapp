@@ -9,3 +9,4 @@ Utility code written for personal use
 
 # Run
 - python -m src.main.util.expense_report_generator
+- python - m src.main.util.website_sanity_test
