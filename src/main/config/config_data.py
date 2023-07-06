@@ -9,10 +9,10 @@ class Config:
     def __init__(self):
         load_dotenv()
         self.working_directory = Path(__file__).absolute().parent
-        self.config = {'SERVICE_ACCOUNT_FILE': "/keys.json",
-                       'SPREADSHEET_ID': os.getenv('SPREADSHEET_ID'),
-                       'SCOPES': ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-                       'SHEET_CELLS': os.getenv('SHEET_CELLS')}
+        self.config = {'SERVICE_ACCOUNT_FILE': "/credentials.json",
+                       'SPREADSHEET_ID': os.environ.get('SPREADSHEET_ID'),
+                       'SCOPES': [os.environ.get('SCOPES')],
+                       'SHEET_CELLS': os.environ.get('SHEET_CELLS')}
         self.current_date = date.today()
 
     def get_service_account_file(self):
@@ -34,6 +34,8 @@ class Config:
         real_month = str(month_name)[0:3] + ' ' + str(year)
         return real_month
 
-#
-# s = Config()
-# print(s.get_spreadsheet_id())
+
+# print(Config().get_service_account_file())
+# print(Config().get_spreadsheet_id())
+# print(Config().get_scopes())
+# print(Config().get_sheet_cells())
