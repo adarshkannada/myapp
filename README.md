@@ -11,6 +11,13 @@ Utility code written for personal use
  - ENV variable SHEET_CELLS: cell range in format '!F35:G48'
  - place the credentials.json file having google sheets details in the folder src/main/config
 
+# Analysis module
+- install streamlit, pandas, matplotlib
+- place the data excel file at the location <my-utils\src\main\data>
+- run streamlit main.py as below
+- open the browser with the given local IP address
+
 # Run
 - python -s -m src.main.expense_analysis.expense_analyzer 
 - python -s - m src.main.util.website_sanity_test
+- python -m streamlit run src/main/expense_analysis/main.py
