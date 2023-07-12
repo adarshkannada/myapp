@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 # Open the Workbook
-FILENAME = os.environ.get('FILENAME')
+FILENAME = os.environ.get('SOURCE_FILENAME')
 DATA_FOLDER = os.path.join(Path(__file__).absolute().parent.parent, 'data')
 FILE_PATH = os.path.join(DATA_FOLDER, FILENAME)
 
@@ -32,4 +32,3 @@ data.drop(['Total', 'Comments'], axis=1)
 st.write(data)
 # st.dataframe(data.style.highlight_max(axis=0))
 data_load_state.text(f'Data for the month')
-
