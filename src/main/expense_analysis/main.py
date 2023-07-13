@@ -6,6 +6,7 @@ import schedule
 import time
 from src.main.data.data_download import download_file_by_name, file_rename
 from src.main.data.fetch_data import FetchData
+from loguru import logger
 
 load_dotenv()
 
@@ -15,8 +16,9 @@ def download_data():
     file_rename()
 
 
-schedule.every().day.at("00:00", "Asia/Kolkata").do(download_data())  # trigger data download every midnight
-
+logger.info("trigger job to download data")
+schedule.every().day.at("00:27", "Asia/Kolkata").do(download_data)  # trigger data download every midnight
+logger.info("job triggered, data downloaded")
 
 # prepare path to data source
 FILENAME = os.environ.get('SOURCE_FILENAME')
@@ -33,15 +35,13 @@ data_load_state = st.text('Loading data...')
 
 # Load 10,000 rows of data into the dataframe.
 
-@st.cache_data
+# @st.cache_data
 def get_data():
     return FetchData().load_data(rows=32, worksheet='jul 2023', header_col_num=1)
 
 
 data = get_data()
 
-# data.drop(['Comments'], axis=1)
-# print(data)
 # Notify the reader that the data was successfully loaded.
 st.write(data)
 # st.dataframe(data.style.highlight_max(axis=0))
