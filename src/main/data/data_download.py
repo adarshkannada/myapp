@@ -2,11 +2,9 @@ import os
 from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
-import pandas as pd
-from src.main.config.config_data import Config
-import os
 from pathlib import Path
 
+from src.main.config.config_data import Config
 
 # Load credentials from the JSON file
 CREDENTIALS_FILE = Config().get_service_account_file()  # path of the credentials.json file
@@ -15,7 +13,7 @@ credentials = service_account.Credentials.from_service_account_file(CREDENTIALS_
 
 # Create a Google Drive API service
 service = build('drive', 'v3', credentials=credentials)
-sheet_id = 'id1XqOtPkiE_Q0dfGSoyxrH730RkwrTczcRbDeJJpqRByQid'  # use correct id
+sheet_id = os.environ.get('SPREADSHEET_ID')  # use correct id
 
 
 def download_file_by_name(file_name):
@@ -30,7 +28,7 @@ def download_file_by_name(file_name):
         # request = service.files().export_media(fileId=file_id)
         request = service.files().export_media(fileId=file_id,
                                                mimeType='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        file_path = os.path.join(os.getcwd(), file_name)
+        file_path = os.path.join(Path(__file__).absolute().parent, file_name)
         with open(file_path, 'wb') as f:
             downloader = MediaIoBaseDownload(f, request)
             done = False
@@ -48,7 +46,8 @@ def file_rename():
     print(source)
     destination = os.path.join(Path(__file__).absolute().parent, "Expensify.xlsx")
     print(destination)
-    os.remove(destination)
+    if os.path.exists(destination):
+        os.remove(destination)
     if not os.path.exists(destination):
         os.rename(source, destination)
     else:
@@ -56,6 +55,6 @@ def file_rename():
 
 
 # Call the function with the file name
-download_file_by_name(file_name='Expensify')
-file_rename()
+# download_file_by_name(file_name='Expensify')
+# file_rename()
 

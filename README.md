@@ -11,7 +11,7 @@ Utility code written for personal use
  - ENV variable SHEET_CELLS: cell range in format '!F35:G48'
  - place the credentials.json file having google sheets details in the folder src/main/config
 
-# Analysis module
+# Analysis - My Datascience application
 - install streamlit, pandas, matplotlib
 - place the data excel file at the location <my-utils\src\main\data>
 - run streamlit main.py as below
