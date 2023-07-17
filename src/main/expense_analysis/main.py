@@ -11,15 +11,6 @@ from loguru import logger
 load_dotenv()
 
 
-def download_data():
-    download_file_by_name(file_name='Expensify')
-    file_rename()
-
-
-logger.info("trigger job to download data")
-schedule.every().day.at("00:27", "Asia/Kolkata").do(download_data)  # trigger data download every midnight
-logger.info("job triggered, data downloaded")
-
 # prepare path to data source
 FILENAME = os.environ.get('SOURCE_FILENAME')
 DATA_FOLDER = os.path.join(Path(__file__).absolute().parent.parent, 'data')
