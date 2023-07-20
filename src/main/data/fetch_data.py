@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import pandas as pd
 import os
 from pathlib import Path
+from loguru import logger
 
 
 class FetchData:
@@ -15,6 +16,7 @@ class FetchData:
         xlsx = pd.ExcelFile(_self.FILE_PATH)
         df = pd.read_excel(xlsx, sheet_name=worksheet, header=header_col_num, nrows=rows)
         df1 = df.drop('Comments', axis=1)
+        logger.info("data obtained from the source")
         return df1
 
 

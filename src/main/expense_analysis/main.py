@@ -2,9 +2,6 @@ import streamlit as st
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import schedule
-import time
-from src.main.data.data_download import download_file_by_name, file_rename
 from src.main.data.fetch_data import FetchData
 from loguru import logger
 
@@ -23,8 +20,6 @@ st.sidebar.markdown("# Home 🎈")
 # Create a text element and let the reader know the data is loading.
 data_load_state = st.text('Loading data...')
 
-
-# Load 10,000 rows of data into the dataframe.
 
 # @st.cache_data
 def get_data():
