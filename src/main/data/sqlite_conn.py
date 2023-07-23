@@ -13,21 +13,27 @@ class Sql:
         except Error:
             print(Error)
 
-    def create_table(self):
+    def create_table(self, name: str):
         con = Sql().sql_connection()
         cur = con.cursor()
-        cur.execute("CREATE TABLE IF NOT EXISTS monthlyExpense(Date str PRIMARY KEY, Home float,"
-                    " Bills float, Shopping float, Food float, Travel float, Clothes float, Fuel float, "
-                    "Gifts float, General float, Investment float, Medicine float, Total float)")
+        # below is incomplete, needs work
+        cur.execute(f"CREATE TABLE IF NOT EXISTS {name}(Date str PRIMARY KEY, Home float,"
+                    f"Bills float, Shopping float, Food float, Travel float, Clothes float, Fuel float,"
+                    f"Gifts float, General float, Investment float, Medicine float, Total float)")
 
     def load_data_to_table(self, data: any):
         con = Sql().sql_connection()
         logger.info("source dataframe obtained")
-        data.to_sql(name='monthlyExpense', con=con, if_exists='append', index=False)
-        logger.info("data loaded into the table")
+        try:
+            data.to_sql(name='monthlyExpense', con=con, if_exists='append', index=False)
+            logger.info("data loaded into the table")
+        except sqlite3.IntegrityError:
+            data.to_sql(name='monthlyExpense', con=con, if_exists='replace', index=False)
+            Sql().create_table()
+        logger.info("dropped, created new table. Data loaded again.")
 
 
 # Sql().create_table()
-df = FetchData().load_data(rows=32, worksheet='Apr 2022', header_col_num=1)
+df = FetchData().load_data(rows=32, worksheet='Jul 2023', header_col_num=1)
 print(df)
 Sql().load_data_to_table(data=df)
