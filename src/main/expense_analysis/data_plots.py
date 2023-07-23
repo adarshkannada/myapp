@@ -6,11 +6,9 @@ from loguru import logger
 class DataPlots:
     def define_bar_chart(self):
         df = FetchData().load_data(rows=32, worksheet='jul 2023', header_col_num=1)
-
-        # logger.info(df)
         ndf = df.iloc[31].tolist()
-        ndf_final = ndf[1:]
-        print(ndf_final)
+        logger.info("the final list of data is fetched")
+        logger.info(ndf)
         # n_list = ndf['Jul23'].tolist()
         # print(n_list)
 

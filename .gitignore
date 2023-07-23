@@ -26,3 +26,5 @@ venv.bak/
 /.streamlit/secrets.toml
 /src/main/config/credentials.json
 *.pyc
+/src/main/data/finance.db
+/src/main/data/Expensify.xlsx
