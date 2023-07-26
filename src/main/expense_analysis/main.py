@@ -2,8 +2,10 @@ import streamlit as st
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from src.main.data.fetch_data import FetchData
+from src.main.data.fetch_data import ImportData
 from loguru import logger
+
+from src.main.utils.utils import Utils
 
 load_dotenv()
 
@@ -23,7 +25,7 @@ data_load_state = st.text('Loading data...')
 
 # @st.cache_data
 def get_data():
-    return FetchData().load_data(rows=32, worksheet='jul 2023', header_col_num=1)
+    return ImportData().get_data(rows=32, worksheet=Utils().get_current_month_year(), header_col_num=1)
 
 
 data = get_data()
