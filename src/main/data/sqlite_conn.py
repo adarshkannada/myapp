@@ -1,7 +1,7 @@
 import sqlite3
 from loguru import logger
 import pandas as pd
-from src.main.data.fetch_data import FetchData
+from src.main.utils.utils import Utils
 
 
 class Sql:
@@ -32,8 +32,11 @@ class Sql:
             Sql().create_table()
         logger.info("dropped, created new table. Data loaded again.")
 
+    def full_load(self):
+        con = con = Sql().sql_connection()
+
 
 # Sql().create_table()
-df = FetchData().load_data(rows=32, worksheet='Jul 2023', header_col_num=1)
-print(df)
-Sql().load_data_to_table(data=df)
+# df = FetchData().fetch_data(rows=32, worksheet=Utils().get_current_month_year(), header_col_num=1)
+# print(df)
+# Sql().load_data_to_table(data=df)
