@@ -2,7 +2,7 @@ import streamlit as st
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from src.main.data.fetch_data import ImportData
+from src.main.data.data_import import ImportData
 from loguru import logger
 
 from src.main.utils.utils import Utils
