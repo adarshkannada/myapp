@@ -19,9 +19,3 @@ class Utils:
         month_year = f"{month_short_name} {year}"
         return month_year
 
-
-# Utils().get_current_month_year()
-# for month in range(1, 13):
-#     print(Utils().get_month_year(month_number=month, year=2021))
-#     month += 1
-# print(Utils().get_month_year(month_number=2, year=2021))
