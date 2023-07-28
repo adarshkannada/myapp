@@ -25,12 +25,12 @@ class Sql:
         con = Sql().sql_connection()
         logger.info("source dataframe obtained")
         try:
-            data.to_sql(name=table_name, con=con, if_exists='append', index=False)
+            data.to_sql(name=table_name, con=con, if_exists='replace', index=False)
             logger.info("data loaded into the table")
         except sqlite3.IntegrityError:
             Sql().create_table(name=table_name)
             data.to_sql(name=table_name, con=con, if_exists='replace', index=False)
-        logger.info("dropped, created new table. Data loaded again.")
+            logger.info("dropped, created new table. Data loaded again.")
 
 
 # Sql().create_table()

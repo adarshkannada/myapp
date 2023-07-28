@@ -10,7 +10,6 @@ class Utils:
         month = calendar.month_name[month_number]
         month_short_name = month[:3]
         month_year = f"{month_short_name} {year}"
-        print(month_year)
         return month_year
 
     def get_month_year(self, month_number, year):
