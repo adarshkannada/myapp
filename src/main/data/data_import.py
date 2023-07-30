@@ -65,5 +65,4 @@ class ImportData:
             DataDownload().file_rename()
             ImportData().full_load(start_year=2019, end_year=int(os.environ.get('END_YEAR')))
 
-
 # ImportData().data_load()
