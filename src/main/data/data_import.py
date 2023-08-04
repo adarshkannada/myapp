@@ -7,6 +7,7 @@ from loguru import logger
 from src.main.data.data_download import DataDownload
 from src.main.data.sqlite_conn import Sql
 from src.main.utils.utils import Utils
+from src.main.config.config_data import Config
 
 
 class ImportData:
@@ -65,4 +66,8 @@ class ImportData:
             DataDownload().file_rename()
             ImportData().full_load(start_year=2019, end_year=int(os.environ.get('END_YEAR')))
 
+
 # ImportData().data_load()
+# Config().create_credentials_json(file_name='creds.json')
+# DataDownload().download_file_by_name(file_name='Expensify')
+# DataDownload().file_rename()

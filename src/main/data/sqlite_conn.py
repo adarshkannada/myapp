@@ -39,7 +39,8 @@ class Sql:
             logger.info("dropped, created new table. Data loaded again.")
 
     def get_data_from_table(self, query: str):
-        """this query will fetch data from a table with the given sql query"""
+        """this query will fetch data from a table with the given sql query
+        creates a pandas dataframe, and returns it. """
         con = Sql().sql_connection()
         logger.info("connected to database")
         df = pd.read_sql_query(sql=query, con=con)

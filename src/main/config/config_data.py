@@ -4,13 +4,14 @@ import calendar
 from pathlib import Path
 from dotenv import load_dotenv
 import json
+from loguru import logger
 
 
 class Config:
     def __init__(self):
         load_dotenv()
         self.working_directory = Path(__file__).absolute().parent
-        self.config = {'SERVICE_ACCOUNT_FILE': "credentials.json",
+        self.config = {'SERVICE_ACCOUNT_FILE': os.environ.get('SERVICE_ACCOUNT_FILE'),
                        'SPREADSHEET_ID': os.environ.get('SPREADSHEET_ID'),
                        'SCOPES': [os.environ.get('SCOPES')],
                        'SHEET_CELLS': os.environ.get('SHEET_CELLS')}
@@ -50,11 +51,10 @@ class Config:
             "universe_domain": "googleapis.com"
         }
         path = os.path.join(Path(__file__).absolute().parent, file_name)
-        print(path)
+        logger.info(path)
         with open(path, 'w') as json_file:
-            json.dump(credentials, json_file)
-
-        print("JSON file created successfully at", path)
+            json.dump(credentials, json_file, indent=2)
+            logger.info(f"JSON file created successfully at path {path}")
 
 
 # print(Config().get_service_account_file())
