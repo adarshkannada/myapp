@@ -32,6 +32,5 @@ st.write(Sql().get_data_from_table(query=f"select * from Apr2023 where Date = 'A
 st.write(Sql().get_data_from_table(query=f"select * from May2023 where Date = 'May2023'"))
 st.write(Sql().get_data_from_table(query=f"select * from Jun2023 where Date = 'Jun2023'"))
 st.write(data)
-st.write(Sql().get_data_from_table(query=f"select * from {Utils().get_current_month_year()} where Date = '{Utils().get_current_month_year()}'"))
-
-
+st.write(Sql().get_data_from_table(query=f"select * from {Utils().get_current_month_year()} where Date = "
+                                         f"'{Utils().get_current_month_year()}'"))

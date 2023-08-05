@@ -24,7 +24,7 @@ class ImportData:
         logger.info("data obtained from the source")
         return df1
 
-    def full_load(self, start_year: int, end_year: int):
+    def full_load_old(self, start_year: int, end_year: int):
         """loads all the months data between [start_year] and [end_year]
         as input by the user and as available from the datasource"""
         for year in range(start_year, end_year):
@@ -40,6 +40,21 @@ class ImportData:
                     break
             if year > 2023:
                 break
+
+    def full_load(self):
+        """loads all the data in different worksheets from the source file to destination
+        database"""
+
+        xlsx = pd.ExcelFile(self.FILE_PATH)
+        logger.info(f"list of worksheets from source {xlsx.sheet_names}")
+        for sheet in xlsx.sheet_names:
+            try:
+                Sql().create_table(name=sheet)
+                df = ImportData().get_data(rows=32, worksheet=sheet, header_col_num=1)
+                Sql().load_data_to_table(table_name=sheet, data=df)
+                logger.info(f"data loaded for the month-year {sheet}")
+            except ValueError:
+                logger.info(f"Error in data loading")
 
     def incr_load(self):
         """laods current month data into the database"""
@@ -64,7 +79,7 @@ class ImportData:
             logger.info(f"full data load is triggered")
             DataDownload().download_file_by_name(file_name='Expensify')
             DataDownload().file_rename()
-            ImportData().full_load(start_year=2019, end_year=int(os.environ.get('END_YEAR')))
+            ImportData().full_load()
 
 
 # ImportData().data_load()
