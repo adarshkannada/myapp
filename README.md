@@ -6,7 +6,7 @@ Utility code written for personal use
 - Install dependencies from requirements.txt
 - Install **pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib**
 - Basic setup guide https://developers.google.com/sheets/api/quickstart/python
-  - place the credentials.json file having google sheets details in the folder <src/main/config>
+  - place the json file having google sheets details in the folder <src/main/config>
 - set the environment variables appropriately
 
 # Run
