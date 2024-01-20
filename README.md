@@ -1,5 +1,6 @@
 # Data Analytics Application
 An analytics for personal finance.
+Sources Data from Google Sheets, Exposes Data to be used for different Analytics.
 
 # Setup
 - Install Python 3.10.5
