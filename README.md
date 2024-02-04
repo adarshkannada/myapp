@@ -44,6 +44,6 @@ Sources Data from Google Sheets, Exposes Data to be used for different Analytics
 # Run
 - Data Load
   - SET ENV variable LOAD_TYPE to full/incremental
-  - RUN python3 -m src.main.data.data_import
+  - RUN python3 -m main [will trigger the driver method]
 - RUN Streamlit server
-  - python -m streamlit run src/main/analyse/main.py
+  - python -m streamlit run src/main/analyse/index_page.py
