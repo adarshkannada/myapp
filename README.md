@@ -8,18 +8,8 @@ Sources Data from Google Sheets, Exposes Data to be used for different Analytics
 - Install **pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib**
 - Basic setup guide https://developers.google.com/sheets/api/quickstart/python
   - place the json file having google sheets details in the folder <src/main/config>
-- ## set the environment variables appropriately
 
-  |KEY|VALUE|
-  |---|---|
-  | DATABASE_URL|URL|
-  |DBUSER|adarsha |
-  | PASSWORD|PASS|
-  | HOST  |host_id   |
-  |PORT  |  26257 |
-  |DATABASE   |DB_name   |
-
-  - ## variables to connect to google storage
+- ## variables to connect to google storage
   |KEY|VALUE|
   |---|---|
   | SPREADSHEET_ID | 1-gogole-sheets-id |
@@ -35,7 +25,7 @@ Sources Data from Google Sheets, Exposes Data to be used for different Analytics
   | CLIENT_ID|client-id|
   | CLIENT_X509_CERT_URL|client-url|
 
-  - ## variables needed to import data to database
+- ## variables needed to import data to database
   |KEY|VALUE|
   |---|---|
   |LOAD_TYPE|incremental|
