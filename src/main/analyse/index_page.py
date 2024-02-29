@@ -25,7 +25,7 @@ def get_data():
     return Sql().get_data_from_table(query=f"select * from Jul2023 where Date = 'Jul2023'")
 
 
-data = get_data()
+# data = get_data()
 
 # Notify the reader that the data was successfully loaded.
 
