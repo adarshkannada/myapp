@@ -26,10 +26,10 @@ Sources Data from Google Sheets, Exposes Data to be used for different Analytics
   | CLIENT_X509_CERT_URL|client-url|
 
 - ## variables needed to import data to database
-  |KEY|VALUE|
-  |---|---|
-  |LOAD_TYPE|incremental|
-  |DBNAME|finance.db|
+  |KEY| VALUE              |
+  |---|--------------------|
+  |LOAD_TYPE| full / incremental |
+  |DBNAME| finance.db         |
 
 # Run
 - Data Load
