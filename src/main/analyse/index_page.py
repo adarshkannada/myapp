@@ -29,8 +29,11 @@ def get_data():
 
 # Notify the reader that the data was successfully loaded.
 
-bardf = Sql().get_data_from_table(query=f"select * from {Utils().get_current_month_year()} where Date = "
-                                        f"'{Utils().get_current_month_year()}'")
+bardf = Sql().get_data_from_table(query=f"SELECT * FROM AllTransactions WHERE Date >= date('now', '-30 days') "
+                                        f"AND Date <= date('now');")
+column_names = bardf.columns.values.tolist()
+print(column_names)
+
 home_bar = bardf['Home'].values[0]
 bills_bar = bardf['Bills'].values[0]
 shopping_bar = bardf['Shopping'].values[0]
@@ -56,6 +59,6 @@ options = {
 }
 
 st.write("# Current Month")
-st_echarts(options=options, height="500px")
+st_echarts(options=options, theme='dark', height="500px")
 
 data_load_state.text(f'Data for the current month')

@@ -81,7 +81,7 @@ class ImportData:
     def incr_load(self):
         """laods current month data into the database"""
         try:
-            Sql().create_table(name=Utils().get_current_month_year())
+            # Sql().create_table(name=Utils().get_current_month_year())
             df = ImportData().get_data(rows=32, worksheet=Utils().get_current_month_year(), header_col_num=1)
             Sql().load_data_to_table(table_name=Utils().get_current_month_year(), data=df)
             logger.info(f"data loaded for the month-year {(Utils().get_current_month_year())}")
