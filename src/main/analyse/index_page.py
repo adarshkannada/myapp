@@ -16,6 +16,8 @@ load_dotenv()
 st.title('My Analytics')
 st.markdown("# Home 🎈")
 st.sidebar.markdown("# Home 🎈")
+
+st.button(label="Load Data", on_click=ImportData().data_load())
 # Create a text element and let the reader know the data is loading.
 data_load_state = st.text('Loading data...')
 
@@ -28,9 +30,11 @@ def get_data():
 # data = get_data()
 
 # Notify the reader that the data was successfully loaded.
+query = f"select * from AllTransactions where Date BETWEEN '2024-02-01' and '2024-02-29'"
+# bardf = Sql().get_data_from_table(query=f"SELECT * FROM AllTransactions WHERE Date >= date('now', '-30 days') "
+#                                         f"AND Date <= date('now');")
 
-bardf = Sql().get_data_from_table(query=f"SELECT * FROM AllTransactions WHERE Date >= date('now', '-30 days') "
-                                        f"AND Date <= date('now');")
+bardf = Sql().get_data_from_table(query=query)
 column_names = bardf.columns.values.tolist()
 print(column_names)
 
