@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from pathlib import Path
 from loguru import logger
+from sqlite3 import Error
 # from sqlalchemy import create_engine
 from typing import Optional
 
@@ -13,7 +14,7 @@ from src.main.utils.utils import Utils
 
 class ImportData:
     load_dotenv()
-    FILENAME = os.environ.get('SOURCE_FILENAME')  # excel file name
+    FILENAME = os.environ.get('SOURCE_FILENAME', 'Expensify.xlsx')  # excel file name
     DATA_FOLDER = os.path.join(Path(__file__).absolute().parent.parent, 'data')  # folder where excel file is present
     FILE_PATH = os.path.join(DATA_FOLDER, FILENAME)  # excel file path
     table_name = 'AllTransactions'
@@ -93,14 +94,14 @@ class ImportData:
         based on the ENV variable [LOAD_TYPE] full or current month data is loaded into the database"""
         if os.environ.get('LOAD_TYPE') == 'incremental':
             logger.info(f"incremental data load is triggered")
-            DataDownload().download_file_by_name(file_name='Expensify')
-            DataDownload().file_rename()
+            # DataDownload().download_file_by_name(credentials=credentials, file_name='Expensify')
+            # DataDownload().file_rename()
             ImportData().incr_load()
 
         if os.environ.get('LOAD_TYPE') == 'full':
             logger.info(f"full data load is triggered")
-            DataDownload().download_file_by_name(file_name='Expensify')
-            DataDownload().file_rename()
+            # DataDownload().download_file_by_name(credentials=credentials, file_name='Expensify')
+            # DataDownload().file_rename()
             ImportData().full_load()
 
 

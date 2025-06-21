@@ -1,5 +1,4 @@
 import os
-from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 from pathlib import Path
@@ -10,19 +9,14 @@ from src.main.config.config_data import Config
 
 class DataDownload:
 
-    def download_file_by_name(self, file_name: str):
+    def download_file_by_name(self, credentials, file_name: str):
         """this method will download the latest excel file from google drive"""
-        # Load credentials from the JSON file
-        credentials_file = Config().get_service_account_file()  # path of the credentials.json file
-        credentials = service_account.Credentials.from_service_account_file(credentials_file,
-                                                                            scopes=[
-                                                                                'https://www.googleapis.com/auth/drive'])
-
+        
         # Create a Google Drive API service
         service = build('drive', 'v3', credentials=credentials)
-        sheet_id = os.environ.get('SPREADSHEET_ID')  # use correct id
+        
         # Search for the file by name
-        response = service.files().list(q=f"name='{file_name}'", fields='files(id)').execute()
+        response = service.files().list(q=f"name='{file_name}'", fields='files(id)', corpora="user").execute()
         files = response.get('files', [])
 
         # If the file exists, download it
@@ -39,8 +33,10 @@ class DataDownload:
                     status, done = downloader.next_chunk()
                     logger.info(f"Download progress: {int(status.progress() * 100)}%")
             logger.info("File downloaded successfully.")
+            return True
         else:
             logger.info("File not found.")
+            return False
 
     def file_rename(self):
         """this method will delete old file and renames the latest downloaded file"""
@@ -56,7 +52,4 @@ class DataDownload:
             logger.info(f"No renaming file is already present at the path {destination}")
 
 
-# Call the function with the file name
-# DataDownload().download_file_by_name(file_name='Expensify')
-# DataDownload().file_rename()
 
